@@ -1,0 +1,11 @@
+# Global code owners
+# All files require review from Mohammed
+*       @YOUR_USERNAME
+
+# Specific paths (examples)
+/src/components/    @YOUR_USERNAME
+/tests/             @YOUR_USERNAME
+
+# If you add more reviewers later:
+# *.tsx   @YOUR_USERNAME @other-reviewer
+# *.test.tsx  @YOUR_USERNAME @test-expert

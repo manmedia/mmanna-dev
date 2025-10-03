@@ -1,0 +1,4 @@
+
+interface BasicHtmlPropType {
+    className?: string;
+}
