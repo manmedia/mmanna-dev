@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Greeting, { DEFAULT_PROMPT } from './Greeting'
+import Greeting, { DEFAULT_PROMPT, DEFAULT_BUTTON_LABEL } from './Greeting'
 
 describe('Greeting', () => {
   test('greets the provided name when clicking the Greet button', async () => {
@@ -11,7 +11,7 @@ describe('Greeting', () => {
 
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
     await user.type(input, 'foo')
-    await user.click(screen.getByRole('button', { name: /greet/i }))
+    await user.click(screen.getByRole('button'))
 
     expect(screen.getByText('Hello! foo')).toBeInTheDocument()
   })
@@ -20,7 +20,7 @@ describe('Greeting', () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.click(button)
 
@@ -33,7 +33,7 @@ describe('Greeting', () => {
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, '   ')
     await user.click(button)
@@ -44,7 +44,7 @@ describe('Greeting', () => {
 
   test('button is disabled when input is empty', () => {
     render(<Greeting />)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     expect(button).toBeDisabled()
   })
@@ -54,7 +54,7 @@ describe('Greeting', () => {
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     expect(button).toBeDisabled()
 
@@ -68,7 +68,7 @@ describe('Greeting', () => {
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, 'Hi')
     expect(button).toBeEnabled()
@@ -82,7 +82,7 @@ describe('Greeting', () => {
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, '   ')
 
@@ -124,5 +124,19 @@ describe('Greeting', () => {
     await user.keyboard('{Enter}')
 
     expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
+  })
+
+  it('uses default button label when none provided', () => {
+    render(<Greeting />)
+    
+    const button = screen.getByRole('button')
+    expect(button).toHaveTextContent(DEFAULT_BUTTON_LABEL)
+  })
+
+  it('uses custom button label when provided', () => {
+    render(<Greeting buttonLabel="Say Hello" />)
+    
+    const button = screen.getByRole('button')
+    expect(button).toHaveTextContent('Say Hello')
   })
 })

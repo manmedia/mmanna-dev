@@ -6,6 +6,12 @@ module.exports = {
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
   
+  // Mock CSS and asset imports
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': '<rootDir>/tests/styleMock.js',
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/tests/fileMock.js',
+  },
+  
   // Coverage configuration
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
