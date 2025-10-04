@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change to 'master' if that's your default branch
+      - main
 
   # Allow manual trigger
   workflow_dispatch:
@@ -21,6 +21,7 @@ concurrency:
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +40,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Run tests
+        run: pnpm test:ci
+
       - name: Build
         run: pnpm build
         env:
@@ -53,6 +60,7 @@ jobs:
           path: ./dist
 
   deploy:
+    name: Deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

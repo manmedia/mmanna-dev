@@ -1,4 +1,4 @@
-import { type ChangeEvent, type ReactElement, useState } from 'react'
+import { type ChangeEvent, type KeyboardEvent, type ReactElement, useState } from 'react'
 
 type GreetingProps =  BasicHtmlPropType & {
   defaultName?: string;
@@ -23,6 +23,12 @@ export default function Greeting({ className, defaultName = '' }: GreetingProps)
     setMessage(formatGreeting(name))
   }
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter' && name.trim()) {
+      handleGreet()
+    }
+  }
+
   return (
     <div className={className}>
       <label htmlFor="greeting-name"/>
@@ -31,6 +37,7 @@ export default function Greeting({ className, defaultName = '' }: GreetingProps)
         placeholder={DEFAULT_PROMPT}
         value={name}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
       <button type="button" onClick={handleGreet} disabled={!name.trim()}>
         Greet
