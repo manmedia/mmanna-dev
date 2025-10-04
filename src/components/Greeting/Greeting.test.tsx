@@ -1,26 +1,26 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Greeting, { DEFAULT_PROMPT } from './Greeting'
+import Greeting, { DEFAULT_PROMPT, DEFAULT_BUTTON_LABEL } from './Greeting'
 
 describe('Greeting', () => {
-  test('greets the provided name when clicking the Greet button', async () => {
+  it('greets the provided name when clicking the Greet button', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
 
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
     await user.type(input, 'foo')
-    await user.click(screen.getByRole('button', { name: /greet/i }))
+    await user.click(screen.getByRole('button'))
 
     expect(screen.getByText('Hello! foo')).toBeInTheDocument()
   })
 
-  test('does not display a message when clicking button with empty input', async () => {
+  it('does not display a message when clicking button with empty input', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.click(button)
 
@@ -28,12 +28,12 @@ describe('Greeting', () => {
     expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
   })
 
-  test('does not display a message when clicking button with only whitespace in input', async () => {
+  it('does not display a message when clicking button with only whitespace in input', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, '   ')
     await user.click(button)
@@ -42,19 +42,19 @@ describe('Greeting', () => {
     expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
   })
 
-  test('button is disabled when input is empty', () => {
+  it('button is disabled when input is empty', () => {
     render(<Greeting />)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     expect(button).toBeDisabled()
   })
 
-  test('button becomes enabled when user types text', async () => {
+  it('button becomes enabled when user types text', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     expect(button).toBeDisabled()
 
@@ -63,12 +63,12 @@ describe('Greeting', () => {
     expect(button).toBeEnabled()
   })
 
-  test('button becomes disabled when user deletes all text', async () => {
+  it('button becomes disabled when user deletes all text', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, 'Hi')
     expect(button).toBeEnabled()
@@ -77,19 +77,19 @@ describe('Greeting', () => {
     expect(button).toBeDisabled()
   })
 
-  test('button remains disabled when input only contains whitespace', async () => {
+  it('button remains disabled when input only contains whitespace', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
     const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
-    const button = screen.getByRole('button', { name: /greet/i })
+    const button = screen.getByRole('button')
 
     await user.type(input, '   ')
 
     expect(button).toBeDisabled()
   })
 
-  test('submits greeting when pressing Enter key', async () => {
+  it('submits greeting when pressing Enter key', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
@@ -101,7 +101,7 @@ describe('Greeting', () => {
     expect(screen.getByText('Hello! Alice')).toBeInTheDocument()
   })
 
-  test('does not submit when pressing Enter with empty input', async () => {
+  it('does not submit when pressing Enter with empty input', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
@@ -114,7 +114,7 @@ describe('Greeting', () => {
     expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
   })
 
-  test('does not submit when pressing Enter with only whitespace', async () => {
+  it('does not submit when pressing Enter with only whitespace', async () => {
     const user = userEvent.setup()
 
     render(<Greeting />)
@@ -124,5 +124,19 @@ describe('Greeting', () => {
     await user.keyboard('{Enter}')
 
     expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
+  })
+
+  it('uses default button label when none provided', () => {
+    render(<Greeting />)
+    
+    const button = screen.getByRole('button')
+    expect(button).toHaveTextContent(DEFAULT_BUTTON_LABEL)
+  })
+
+  it('uses custom button label when provided', () => {
+    render(<Greeting buttonLabel="Say Hello" />)
+    
+    const button = screen.getByRole('button')
+    expect(button).toHaveTextContent('Say Hello')
   })
 })

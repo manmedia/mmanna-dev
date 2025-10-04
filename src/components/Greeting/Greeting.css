@@ -1,0 +1,21 @@
+/* Greeting Component Styles */
+
+.greeting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2em;
+}
+
+.greeting-container input {
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Responsive: smaller on mobile */
+@media (max-width: 640px) {
+  .greeting-container input {
+    max-width: 280px;
+  }
+}

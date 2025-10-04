@@ -1,0 +1,14 @@
+/* Main Styles Entry Point */
+
+/* Import CSS variables first */
+@import './variables.css';
+
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: var(--color-background);
+}
+
+/* Add any other global styles here */
