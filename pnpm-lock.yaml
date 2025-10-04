@@ -53,7 +53,7 @@ importers:
         version: 19.2.0(@types/react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.0.4
-        version: 5.0.4(rolldown-vite@7.1.14(@types/node@24.6.2))
+        version: 5.0.4(rolldown-vite@7.1.14(@types/node@24.6.2)(yaml@2.8.1))
       babel-jest:
         specifier: ^30.2.0
         version: 30.2.0(@babel/core@7.28.4)
@@ -71,7 +71,7 @@ importers:
         version: 5.9.3
       vite:
         specifier: npm:rolldown-vite@7.1.14
-        version: rolldown-vite@7.1.14(@types/node@24.6.2)
+        version: rolldown-vite@7.1.14(@types/node@24.6.2)(yaml@2.8.1)
 
 packages:
 
@@ -2449,6 +2449,11 @@ packages:
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
 
+  yaml@2.8.1:
+    resolution: {integrity: sha512-lcYcMxX2PO9XMGvAJkJ3OsNMw+/7FKes7/hgerGUYWIoWu5j/+YQqcZr5JnPZWzOsEBgMbSbiSTn/dv/69Mkpw==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
@@ -3805,7 +3810,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.11.1':
     optional: true
 
-  '@vitejs/plugin-react@5.0.4(rolldown-vite@7.1.14(@types/node@24.6.2))':
+  '@vitejs/plugin-react@5.0.4(rolldown-vite@7.1.14(@types/node@24.6.2)(yaml@2.8.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -3813,7 +3818,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.38
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: rolldown-vite@7.1.14(@types/node@24.6.2)
+      vite: rolldown-vite@7.1.14(@types/node@24.6.2)(yaml@2.8.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4962,7 +4967,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rolldown-vite@7.1.14(@types/node@24.6.2):
+  rolldown-vite@7.1.14(@types/node@24.6.2)(yaml@2.8.1):
     dependencies:
       '@oxc-project/runtime': 0.92.0
       fdir: 6.5.0(picomatch@4.0.3)
@@ -4974,6 +4979,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 24.6.2
       fsevents: 2.3.3
+      yaml: 2.8.1
 
   rolldown@1.0.0-beta.41:
     dependencies:
@@ -5244,6 +5250,9 @@ snapshots:
   y18n@5.0.8: {}
 
   yallist@3.1.1: {}
+
+  yaml@2.8.1:
+    optional: true
 
   yargs-parser@21.1.1: {}
 

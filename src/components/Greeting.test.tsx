@@ -88,4 +88,41 @@ describe('Greeting', () => {
 
     expect(button).toBeDisabled()
   })
+
+  test('submits greeting when pressing Enter key', async () => {
+    const user = userEvent.setup()
+
+    render(<Greeting />)
+    const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
+
+    await user.type(input, 'Alice')
+    await user.keyboard('{Enter}')
+
+    expect(screen.getByText('Hello! Alice')).toBeInTheDocument()
+  })
+
+  test('does not submit when pressing Enter with empty input', async () => {
+    const user = userEvent.setup()
+
+    render(<Greeting />)
+    const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
+
+    // Focus the input and press Enter
+    input.focus()
+    await user.keyboard('{Enter}')
+
+    expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
+  })
+
+  test('does not submit when pressing Enter with only whitespace', async () => {
+    const user = userEvent.setup()
+
+    render(<Greeting />)
+    const input = screen.getByPlaceholderText(DEFAULT_PROMPT)
+
+    await user.type(input, '   ')
+    await user.keyboard('{Enter}')
+
+    expect(screen.queryByText(/Hello!/)).not.toBeInTheDocument()
+  })
 })
